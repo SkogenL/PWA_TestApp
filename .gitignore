@@ -1,0 +1,8 @@
+Console_commands_for_server.txt
+uploads/*
+/TestApplication/uploads/*
+*.pyc
+.DS_Store
+venv
+venv3.12
+.gitmodules
