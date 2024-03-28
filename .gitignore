@@ -3,6 +3,6 @@ uploads/*
 /TestApplication/uploads/*
 *.pyc
 .DS_Store
-venv
-venv3.12
+env
+env3.12
 .gitmodules
