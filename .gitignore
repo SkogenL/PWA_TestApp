@@ -6,3 +6,4 @@ uploads/*
 env
 env3.12
 .gitmodules
+db.sqlite3
