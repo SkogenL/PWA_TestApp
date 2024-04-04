@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wi446plm60%9r^1ie$aa&903z717ad3)l=5z&q=tv=+=)l)iq$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["4dc4-156-146-54-98.ngrok-free.app"]
+ALLOWED_HOSTS = ["4dc4-156-146-54-98.ngrok-free.app", "LOCALHOST"]
 
 
 # Application definition
@@ -123,3 +123,6 @@ STATICFILES_DIRS = [ 'static/' ]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import mimetypes
+mimetypes.add_type("text/javascript", ".js", True)
