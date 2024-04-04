@@ -1,5 +1,9 @@
 import { $ } from "/static/jquery/src/jquery.js";
 
+// Tab functions
+
+// Touch canvas functions
+
 export function handleStart(evt) {
     evt.preventDefault();
     log("touchstart.");
@@ -115,3 +119,5 @@ export function handleMove(evt) {
     const container = document.getElementById("log");
     container.textContent = `${msg} \n${container.textContent}`;
   }
+  
+  //

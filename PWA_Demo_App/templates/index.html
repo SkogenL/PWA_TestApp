@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html class="" lang="en">
     {% include "header.html" %}
-<nav>
-    <ul>
-        <li><strong id="navPageName">PWA Testing App</strong></li>
-    </ul>
-</nav>
-<body>
-    <p>This is a simple web app created to practice implementing Progressive Web App (PWA) Technologies</p>
-    <main>
-        <div class="touchfeature">
+    <nav>
+      <div class="tab">
+        <ul>
+          <li><strong id="navPageName">PWA Testing App</strong></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'MediaCapture')">Media Capture</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'Geolocation')">Geolocation</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'Barcodes')">Barcodes/QR</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'Touch')">Multi Touch</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'Motion')">Motion</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'ViewTransitions')">View Transitions</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'WakeLock')">Wake Lock</button></li>
+        </ul>
+      </div>
+  </nav>
+  <body>
+      <p>This is a simple web app created to practice implementing Progressive Web App (PWA) Technologies</p>
+      <main>
+          <div class="tabcontent" id="Touch">
             <canvas id="canvas" width="600" height="600" style="border:solid black 1px;">
-                Your browser does not support canvas element.
-              </canvas>
-              <br />
-              Log:
-              <pre id="log" style="border: 1px solid #ccc;"></pre>              
-        </div>
-    </main>
-</body>
-<script type=module>
-    import {handleStart, handleMove, handleCancel, handleEnd} from "/static/main.js";
-    function startup() {
-        const el = document.getElementById("canvas");
-        el.addEventListener("touchstart", handleStart);
-        el.addEventListener("touchend", handleEnd);
-        el.addEventListener("touchcancel", handleCancel);
-        el.addEventListener("touchmove", handleMove);
-        log("Initialized.");
-      }
-      
-    document.addEventListener("DOMContentLoaded", startup);
+              Your browser does not support canvas elements.
+            </canvas>
+            <br />
+            Log:
+            <pre id="log" style="border: 1px solid #ccc;"></pre>              
+          </div>
+          <div class="tabcontent" id="WakeLock">
+            
+          </div>
+      </main>
+  </body>
+  <script type=module>
+      import {handleStart, handleMove, handleCancel, handleEnd, log} from "/static/main.js";
+      function startup() {
+          const el = document.getElementById("canvas");
+          el.addEventListener("touchstart", handleStart);
+          el.addEventListener("touchend", handleEnd);
+          el.addEventListener("touchcancel", handleCancel);
+          el.addEventListener("touchmove", handleMove);
+          log("Initialized.");
+        }
+        
+      document.addEventListener("DOMContentLoaded", startup);
 
-    const ongoingTouches = [];
-</script>
+      const ongoingTouches = [];
+  </script>
 </html> 
