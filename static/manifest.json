@@ -1,0 +1,13 @@
+{
+    "name": "PWA_Test_App",
+    "start_url": "/",
+    "description": "Simple test application to evaluate the maturity and implementation difficulty of various web features.",
+    "icons": [
+      {
+        "src": "/static/pwa_ico.ico",
+        "sizes": "72x72 96x96 128x128 256x256"
+      }
+    ],
+    "display": "standalone"
+  }
+  

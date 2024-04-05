@@ -7,8 +7,9 @@
           <li><strong id="navPageName">PWA Testing App</strong></li>
           <li><button class="tablinks" onclick="selectFeature(event, 'MediaCapture')">Media Capture</button></li>
           <li><button class="tablinks" onclick="selectFeature(event, 'Geolocation')">Geolocation</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'Notifications')">Notifications</button></li>
           <li><button class="tablinks" onclick="selectFeature(event, 'Barcodes')">Barcodes/QR</button></li>
-          <li><button class="tablinks" onclick="selectFeature(event, 'Touch')">Multi Touch</button></li>
+          <li><button class="tablinks" onclick="selectFeature(event, 'MultiTouch')">Multi Touch</button></li>
           <li><button class="tablinks" onclick="selectFeature(event, 'Motion')">Motion</button></li>
           <li><button class="tablinks" onclick="selectFeature(event, 'ViewTransitions')">View Transitions</button></li>
           <li><button class="tablinks" onclick="selectFeature(event, 'WakeLock')">Wake Lock</button></li>
@@ -16,9 +17,24 @@
       </div>
   </nav>
   <body>
-      <p>This is a simple web app created to practice implementing Progressive Web App (PWA) Technologies</p>
       <main>
-          <div class="tabcontent" id="Touch">
+          <div class="tabcontent" id="MediaCapture">
+              mediacapture
+          </div>
+          <div class="tabcontent" id="Geolocation">
+            <button id="find-me">Show my location</button><br />
+            <p id="status"></p>
+            <a id="map-link" target="_blank"></a>
+          </div>
+          <div class="tabcontent" id="Notifications">
+            Send a notification:
+            <button id="notifButton">Send</button>
+          </div>
+          <div class="tabcontent" id="Barcodes">
+            Barcodes
+          </div>
+          <div class="tabcontent" id="MultiTouch">
+            Touch Events and multi-touch</br>
             <canvas id="canvas" width="600" height="600" style="border:solid black 1px;">
               Your browser does not support canvas elements.
             </canvas>
@@ -26,13 +42,21 @@
             Log:
             <pre id="log" style="border: 1px solid #ccc;"></pre>              
           </div>
+          <div class="tabcontent" id="Motion">
+            Motion
+          </div>
+          <div class="tabcontent" id="ViewTransitions">
+            ViewTransitions
+          </div>
           <div class="tabcontent" id="WakeLock">
-            
+            WakeLock
           </div>
       </main>
+      <p>This is a simple web app created to practice implementing Progressive Web Apps (PWA), and other web technologies.</p>
   </body>
   <script type=module>
-      import {handleStart, handleMove, handleCancel, handleEnd, log} from "/static/main.js";
+      import {handleStart, handleMove, handleCancel, handleEnd, log, geoFindMe,
+        notificationButton} from "/static/main.js";
       function startup() {
           const el = document.getElementById("canvas");
           el.addEventListener("touchstart", handleStart);
@@ -43,7 +67,11 @@
         }
         
       document.addEventListener("DOMContentLoaded", startup);
+        
+      // Geolocation setup
+      document.querySelector("#find-me").addEventListener("click", geoFindMe);
+      // Notification setup
+      document.querySelector("#notifButton").addEventListener("click", notificationButton);
 
-      const ongoingTouches = [];
   </script>
 </html> 
