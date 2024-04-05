@@ -33,7 +33,6 @@ export function geoFindMe() {
 }
 
 // Notification functions
-const serviceReg = await navigator.serviceWorker.getRegistration();
 export const notificationButton = async () => {
     const serviceReg = await navigator.serviceWorker.getRegistration();
     const img = "/static/pwa_ico.png";
@@ -43,11 +42,11 @@ export const notificationButton = async () => {
         alert("This browser does not support notifications.");
         return;
     }
-    //const notifBtn = document.getElementsByClassName("notifButton");
     // If permission granted, send notification, if not, request it.
     if(Notification.permission === 'granted') {
         if(!serviceReg === false && 'showNotification' in serviceReg) {
-            serviceReg.showNotification("Test Notif", {body:text, icon:img});
+            alert("should work");
+            serviceReg.showNotification("Test Notif", {body:text});
         }
         else {
             new Notification("Test Notif", {body:text, icon:img});
@@ -58,7 +57,7 @@ export const notificationButton = async () => {
         const result = await Notification.requestPermission();
         if(result === 'granted') {
             if(!serviceReg === false && 'showNotification' in serviceReg) {
-                serviceReg.showNotification("Test Notif", {body:text, icon:img});
+                serviceReg.showNotification("Test Notif", {body:text});
             }
             else {
                 new Notification("Test Notif", {body:text, icon:img});
@@ -66,7 +65,7 @@ export const notificationButton = async () => {
         }
     }
 }
-  
+
 
 // Touch canvas functions
 
