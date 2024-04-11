@@ -1,9 +1,6 @@
 import { $ } from "/static/jquery/src/jquery.js";
 
-// Tab functions
-
 // Geolocation functions
-
 export function geoFindMe() {
     const status = document.querySelector("#status");
     const mapLink = document.querySelector("#map-link");

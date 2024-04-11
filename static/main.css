@@ -81,4 +81,29 @@ button {
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-}   
+    view-transition-name: contents;
+} 
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    display: block;
+    z-index: 1;
+}
+::view-transition-new(contents) {
+    animation-name: sliding-back;
+    z-index: 0;
+    mix-blend-mode: normal;
+}
+::view-transition-old(contents) {
+    animation-name: sliding;
+    z-index: 1;
+}
+@keyframes sliding {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@keyframes sliding-back {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
