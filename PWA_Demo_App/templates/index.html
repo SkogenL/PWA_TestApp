@@ -81,7 +81,7 @@
   </body>
   <script type=module>
     import {handleStart, handleMove, handleCancel, handleEnd, log, geoFindMe,
-    notificationButton, toggleWakeLock} from "/static/main.js";
+    notificationButton, requestWakeLock, releaseWakeLock} from "/static/main.js";
     function startup() {
       const el = document.getElementById("canvas");
       el.addEventListener("touchstart", handleStart);
@@ -110,6 +110,7 @@
     document.querySelector("#notifButton").addEventListener("tap", notificationButton);
 
     // Wake lock setup
+    let wakeLock = null;
     const wakeBox = document.querySelector("#wakeCheckbox");
     if ("wakeLock" in navigator) {
       let isSupported = true;
@@ -120,9 +121,10 @@
     } 
     document.querySelector("#wakeCheckbox").addEventListener("change", function () {
       if (this.checked) {
-        console.log("checked");
+        requestWakeLock();
+        console.log("wake lock checked");
       }
-      else { console.log("not checked"); }
+      else { console.log("wake lock unchecked"); releaseWakeLock(); }
     });
     
     // View Transition setup 
@@ -132,7 +134,12 @@
       document.querySelector("#viewTransitionStatus").textContent = "View Transitions not supported by this browser.";
     }
     else { document.querySelector("#viewTransitionStatus").textContent = "View Transitions are supported!."; }
-
+    document.querySelector("#transitionCheckbox").addEventListener("change", function () {
+      if (this.checked) {
+        console.log("view transitions checked");
+      }
+      else { console.log("view transitions uchecked"); }
+    });
     // End setup work
   </script>
 </html> 

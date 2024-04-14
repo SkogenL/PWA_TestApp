@@ -30,15 +30,15 @@
     }
   
     function updateTab(event, name) {
-        if (!document.startViewTransition) {
-            console.log("doesnt have view transitions");
-          selectFeatur(event, name);
-          return;
+        if (document.startViewTransition) {
+          //console.log("has view transitions");
+          if (document.querySelector("#transitionCheckbox").checked) {
+            const transition = document.startViewTransition(() => selectFeature(event, name));
+            return;
+          }
         }
-        else if (document.getElementById("transitionCheckbox")) {
-            
-        }
-        console.log("has view transitions");
-        const transition = document.startViewTransition(() => selectFeature(event, name));
+        //console.log("doesnt have view transitions");
+        selectFeature(event, name);
+        return;
     }
 </script>

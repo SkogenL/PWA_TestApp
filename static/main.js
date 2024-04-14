@@ -1,5 +1,28 @@
 import { $ } from "/static/jquery/src/jquery.js";
 
+// Wake lock function
+
+let wakeLock = null;
+export const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+
+    wakeLock.addEventListener('release', () => {
+      console.log('Wake Lock was released');
+    });
+    console.log('Wake Lock is active');
+  }
+  catch(err) {
+    console.error(err);
+  }
+};
+
+export const releaseWakeLock = () => {
+  console.log('releasing wakeLock');
+  wakeLock.release();
+  wakeLock = null;
+};
+
 // Geolocation functions
 export function geoFindMe() {
     const status = document.querySelector("#status");
