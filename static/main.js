@@ -1,5 +1,37 @@
 import { $ } from "/static/jquery/src/jquery.js";
 
+// Motion function
+
+export function guh(event){ 
+  event.preventDefault();
+  event.stopPropagation();
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission()        
+      .then(permissionState => {
+        if (permissionState === 'granted') {
+          window.addEventListener("deviceorientation", orientationEvent);
+        }
+     })
+  }
+  else {
+    window.addEventListener("deviceorientation", orientationEvent);
+  }
+}
+
+export function orientationEvent(evt) {
+  const alpha = document.querySelector("#alphaBar");
+  const beta = document.querySelector("#betaBar");
+  const gamma = document.querySelector("#gammaBar");
+  //document.querySelector("#motionStatus").textContent = String(evt.alpha);
+  //alert(String(evt.alpha));
+  alpha.style.width = Math.round(evt.alpha / 3.6) + "%";
+  alpha.innerHTML = Math.round(evt.alpha);
+  beta.style.width = Math.round(evt.beta / 1.8) + "%";
+  beta.innerHTML = Math.round(evt.beta);
+  gamma.style.width = Math.round(evt.gamma / 0.9) + "%";
+  gamma.innerHTML = Math.round(evt.gamma)
+}
+
 // Wake lock function
 
 let wakeLock = null;

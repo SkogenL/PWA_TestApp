@@ -10,6 +10,7 @@
 <script>
     function selectFeature(evt, ftName) {
         // Declare all variables
+        
         var i, tabcontent, tablinks;
       
         // Get all elements with class="tabcontent" and hide them
@@ -27,6 +28,7 @@
           // Show the current tab, and add an "active" class to the button that opened the tab
           document.getElementById(ftName).style.display = "block";
           evt.target.className += " active";
+          
     }
   
     function updateTab(event, name) {

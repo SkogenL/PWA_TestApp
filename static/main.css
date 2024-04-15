@@ -34,6 +34,14 @@ body {
     align-items: stretch;
 }
 
+@media only screen and (max-width: 600px) {
+    .tab {
+        width: 30em;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
 .tab ul {
     display: flex;
     align-items: stretch;
@@ -106,4 +114,29 @@ button {
 @keyframes sliding-back {
     from { transform: translateX(-50%); }
     to { transform: translateX(0); }
+}#motionBars{
+    width: 100%;
+    background-color: grey;
+}
+  
+#alphaBar {
+    width: 1%;
+    height: 30px;
+    color: white;
+    text-align: center;
+    background-color: red;
+}
+#betaBar {
+    width: 1%;
+    height: 30px;
+    color: white;
+    text-align: center;
+    background-color: green;
+}
+#gammaBar {
+    width: 1%;
+    height: 30px;
+    color: white;
+    text-align: center;
+    background-color: blue;
 }

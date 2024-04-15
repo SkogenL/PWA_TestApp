@@ -24,7 +24,7 @@
             <p>
               Media capture types:
               <p>
-                <label for="soundFile">What does your voice sound like?:</label>
+                <label for="soundFile">Upload audio:</label>
                 <input type="file" id="soundFile" capture="user" accept="audio/*" />
               </p>
               <p>
@@ -32,11 +32,11 @@
                 <input type="file" id="videoFile" capture="environment" accept="video/*" />
               </p>
               <p>
-                <label for="imageFile1">Upload a photo of yourself (opens file upload):</label>
+                <label for="imageFile1">Upload a photo (opens file upload):</label>
                 <input type="file" id="imageFile1" accept="image/*" />
               </p> 
               <p>
-                <label for="imageFile2">Upload a photo of yourself (opens camera on mobile):</label>
+                <label for="imageFile2">Upload a photo (opens camera on mobile):</label>
                 <input type="file" id="imageFile2" capture="user" accept="image/*" />
               </p> 
               Note: 
@@ -53,7 +53,10 @@
             Note: Not available on Firefox iOS, and on Safari the site must be added to home screen.
           </div>
           <div class="tabcontent" id="Barcodes">
-            Barcodes
+            <p>
+              <label for="imageFile1">Upload an image of a barcode or QR code:</label>
+              <input type="file" id="imageFile1" accept="image/*" />
+            </p> 
           </div>
           <div class="tabcontent" id="MultiTouch">
             Touch Events and multi-touch</br>
@@ -65,7 +68,14 @@
             <pre id="log" style="border: 1px solid #ccc;"></pre>              
           </div>
           <div class="tabcontent" id="Motion">
-            Motion
+            <p>If supported, these bars will show the current device orientation coordinates.</p>
+            <p id="motionStatus"></p>
+            <button id="motionStart">Start</button></br>
+            <div id="motionBars">
+              <div id="alphaBar">0.0</div>
+              <div id="betaBar">0.0</div>
+              <div id="gammaBar">0.0</div>
+            </div>
           </div>
           <div class="tabcontent" id="ViewTransitions">
             <p id="viewTransitionStatus"></p>
@@ -81,7 +91,7 @@
   </body>
   <script type=module>
     import {handleStart, handleMove, handleCancel, handleEnd, log, geoFindMe,
-    notificationButton, requestWakeLock, releaseWakeLock} from "/static/main.js";
+    notificationButton, requestWakeLock, releaseWakeLock, orientationEvent, guh} from "/static/main.js";
     function startup() {
       const el = document.getElementById("canvas");
       el.addEventListener("touchstart", handleStart);
@@ -90,6 +100,7 @@
       el.addEventListener("touchmove", handleMove);
       log("Initialized.");
     }
+
     // Tabs setup
     document.addEventListener("DOMContentLoaded", startup);
     document.querySelector("#mediaBtn").addEventListener("click", function() {updateTab(event, "MediaCapture");});
@@ -140,6 +151,15 @@
       }
       else { console.log("view transitions uchecked"); }
     });
+
+    // Motion setup
+    if (window.DeviceOrientationEvent) {
+      document.querySelector("#motionStatus").textContent = "Device motion is supported by this browser.";
+      document.querySelector("#motionStart").addEventListener("click", guh);
+      //window.addEventListener("deviceorientation", orientationEvent, true);
+    }
+    else { document.querySelector("#motionStatus").textContent = "Device motion is not supported by this browser."; }
+
     // End setup work
   </script>
 </html> 
