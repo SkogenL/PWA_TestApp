@@ -39,7 +39,7 @@
                 <label for="imageFile2">Upload a photo (opens camera on mobile):</label>
                 <input type="file" id="imageFile2" capture="user" accept="image/*" />
               </p> 
-              Note: 
+              <div id="imgFrame"></div>
             </p>           
           </div>
           <div class="tabcontent" id="Geolocation">
@@ -53,10 +53,13 @@
             Note: Not available on Firefox iOS, and on Safari the site must be added to home screen.
           </div>
           <div class="tabcontent" id="Barcodes">
+            <p id="barcodeStatus"></p>
             <p>
-              <label for="imageFile1">Upload an image of a barcode or QR code:</label>
-              <input type="file" id="imageFile1" accept="image/*" />
+              <label for="barcodeInput">Upload an image of a barcode or QR code:</label>
+              <input type="file" id="barcodeInput" accept="image/*" />
             </p> 
+            <p id="barcodeResult"></p>
+            <div id="bcFrame"></div>
           </div>
           <div class="tabcontent" id="MultiTouch">
             Touch Events and multi-touch</br>
@@ -112,6 +115,8 @@
     document.querySelector("#viewBtn").addEventListener("click", function() {updateTab(event, "ViewTransitions");});
     document.querySelector("#wakeBtn").addEventListener("click", function() {updateTab(event, "WakeLock");});
 
+    // Image cap setup
+
     // Geolocation setup
     document.querySelector("#find-me").addEventListener("click", geoFindMe);
     document.querySelector("#find-me").addEventListener("tap", geoFindMe);
@@ -120,13 +125,46 @@
     document.querySelector("#notifButton").addEventListener("click", notificationButton);
     document.querySelector("#notifButton").addEventListener("tap", notificationButton);
 
+    // Barcode setup
+    const barcodeInput = document.querySelector("#barcodeInput");
+    if (!("BarcodeDetector" in globalThis)) {
+      document.querySelector("#barcodeStatus").textContent = "BarcodeDetector not supported by this browser.";
+      barcodeInput.disabled = true;
+    }
+    else {
+      document.querySelector("#barcodeStatus").textContent = "BarcodeDetector API supported!";
+      barcodeInput.addEventListener("change", barcodeHandle, false);
+    }
+    function barcodeHandle() {
+      const barcodeFile = this.files[0];
+      if (barcodeFile) {
+        const img = document.createElement('img');
+        img.classList.add("obj");
+        console.log(this.files[0]);
+        img.src = barcodeFile;
+        img.style.width = "400px";
+        document.getElementById('bcFrame').appendChild(img);
+        const reader = new FileReader();
+        reader.onload = (e) => { img.src = e.target.result; };
+        reader.readAsDataURL(barcodeFile);
+        const detector = new BarcodeDetector({formats: ["code_39", "codabar", "ean_13"]});
+        detector
+          .detect(barcodeFile)
+          .then((barcodes) => {
+            barcodes.foreach((barcode) => document.querySelector("#barcodeResult").textContent = barcode.rawValue);
+          })
+          .catch((err) => {console.log(err)});
+      }
+    }
+
     // Wake lock setup
     let wakeLock = null;
     const wakeBox = document.querySelector("#wakeCheckbox");
     if ("wakeLock" in navigator) {
       let isSupported = true;
       document.querySelector("#wakeStatus").textContent = "Screen Wake Lock API supported!";
-    } else {
+    } 
+    else {
       wakeBox.disabled = true;
       document.querySelector("#wakeStatus").textContent = "Wake lock is not supported by this browser.";
     } 
