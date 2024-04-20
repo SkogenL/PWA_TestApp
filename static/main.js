@@ -22,8 +22,6 @@ export function orientationEvent(evt) {
   const alpha = document.querySelector("#alphaBar");
   const beta = document.querySelector("#betaBar");
   const gamma = document.querySelector("#gammaBar");
-  //document.querySelector("#motionStatus").textContent = String(evt.alpha);
-  //alert(String(evt.alpha));
   alpha.style.width = Math.round(evt.alpha / 3.6) + "%";
   alpha.innerHTML = Math.round(evt.alpha);
   beta.style.width = Math.round(evt.beta / 1.8) + "%";

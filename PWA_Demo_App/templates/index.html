@@ -25,19 +25,19 @@
               Media capture types:
               <p>
                 <label for="soundFile">Upload audio:</label>
-                <input type="file" id="soundFile" capture="user" accept="audio/*" />
+                <input type="file" class="mcInput" id="soundFile" capture="user" accept="audio/*" />
               </p>
               <p>
                 <label for="videoFile">Upload a video:</label>
-                <input type="file" id="videoFile" capture="environment" accept="video/*" />
+                <input type="file" class="mcInput" id="videoFile" capture="environment" accept="video/*" />
               </p>
               <p>
                 <label for="imageFile1">Upload a photo (opens file upload):</label>
-                <input type="file" id="imageFile1" accept="image/*" />
+                <input type="file" class="mcInput" id="imageFile1" accept="image/*" />
               </p> 
               <p>
                 <label for="imageFile2">Upload a photo (opens camera on mobile):</label>
-                <input type="file" id="imageFile2" capture="user" accept="image/*" />
+                <input type="file" class="mcInput" id="imageFile2" capture="user" accept="image/*" />
               </p> 
               <div id="imgFrame"></div>
             </p>           
@@ -140,20 +140,25 @@
       if (barcodeFile) {
         const img = document.createElement('img');
         img.classList.add("obj");
+        img.id = 'bcImg';
         console.log(this.files[0]);
         img.src = barcodeFile;
         img.style.width = "400px";
-        document.getElementById('bcFrame').appendChild(img);
+       
         const reader = new FileReader();
         reader.onload = (e) => { img.src = e.target.result; };
         reader.readAsDataURL(barcodeFile);
-        const detector = new BarcodeDetector({formats: ["code_39", "codabar", "ean_13"]});
+         document.getElementById('bcFrame').appendChild(img);
+        const detector = new BarcodeDetector({formats: ["qr_code", "code_39", "codabar", "ean_13"]});
+        const done = document.getElementById('bcImg');
+        console.log(img);
         detector
-          .detect(barcodeFile)
+          .detect(done)
           .then((barcodes) => {
             barcodes.foreach((barcode) => document.querySelector("#barcodeResult").textContent = barcode.rawValue);
           })
           .catch((err) => {console.log(err)});
+
       }
     }
 
