@@ -21,4 +21,6 @@ from PWA_Demo_App import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.index),
+    path("index.html", views.index),
+    path("serviceworker.js", views.service_worker),
 ]
